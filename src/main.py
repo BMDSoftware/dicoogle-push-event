@@ -1,8 +1,12 @@
 import os
 
 from flask import Flask, send_file
+from flask import request
+from flask import jsonify # <- `jsonify` instead of `json`
 
 app = Flask(__name__)
+
+studies = []
 
 @app.route("/")
 def index():
@@ -11,19 +15,14 @@ def index():
 """ Notify receives a GET message 
 """
 @app.route("/notify")
-def notify():
-    # Get query params
-    name = request.args.get('name')
-    
-    # Return a JSON response
-    return jsonify({'name': name})
 
-""" Notify receives a POST message
-"""
 @app.route("/notify_post", methods=['POST'])
 def notify_post():
-    # 
-    return jsonify({'name': name})
+    # Get POST JSON 
+    response = request.get_json()
+    studies.append(response['StudyInstanceUID'])
+    # Return a JSON response
+    return jsonify({'nStudies': len(studies)})
 
 
 def main():
