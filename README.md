@@ -4,9 +4,9 @@ This is an example server to handle new events on Dicoogle, considering index-pu
 
 ## Installation
 
-Run with poetry with following instructions:
+Run with poetry with the following instructions:
     
-    ```bash
+    ```
     poetry install
     poetry shell
     python -m flask --app src/main run -p 9005 --debug
@@ -32,7 +32,7 @@ This is an example of configurations for `Plugins/settings/z-index-push-event.xm
 
 # Test
 
-Send a few images, for instance using dicom-rs, to the Dicoogle.
+Send a few images, for instance using dicom-rs, to the Dicoogle. In this example, make sure you send MR images.
 
 ```bash
 dicom-storescu DICOOGLE-STORAGE@localhost:6666 I_00002
