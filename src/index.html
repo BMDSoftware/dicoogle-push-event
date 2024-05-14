@@ -3,10 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello World</title>
+    <title>Dicoogle Pushed Events</title>
   </head>
 
   <body>
-    <h1>Hello World</h1>
+    <h1>List of studies received</h1>
+    <!-- Request /studies and list them in javascript -->
+    <ul id="studies"></ul>
+
   </body>
+  <script>
+    // Only when dom is ready 
+    document.addEventListener("DOMContentLoaded", function () {
+      fetchStudies();
+    });
+    // function fetchStudies
+    function fetchStudies() {
+      fetch("/studies")
+        .then((response) => response.json())
+        .then((data) => {
+          const studies = data.studies;
+          const studiesList = document.getElementById("studies");
+          studies.forEach((study) => {
+            const studyElement = document.createElement("li");
+            studyElement.textContent = study;
+            studiesList.appendChild(studyElement);
+          });
+        });
+    }
+  </script>
 </html>

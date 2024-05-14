@@ -6,23 +6,31 @@ from flask import jsonify # <- `jsonify` instead of `json`
 
 app = Flask(__name__)
 
-studies = []
+dicom_studies = []
 
 @app.route("/")
 def index():
     return send_file('index.html')
 
-""" Notify receives a GET message 
-"""
-@app.route("/notify")
+""" List studies"""
+@app.route("/studies")
+def studies():
+    print(dicom_studies)
+
+    # Return a JSON with studies.
+    return jsonify({'studies': dicom_studies})
+
 
 @app.route("/notify_post", methods=['POST'])
 def notify_post():
     # Get POST JSON 
     response = request.get_json()
-    studies.append(response['StudyInstanceUID'])
+    print(response['StudyInstanceUID'])
+    
+    dicom_studies.append(response['StudyInstanceUID'])
+    print(studies)
     # Return a JSON response
-    return jsonify({'nStudies': len(studies)})
+    return jsonify({'nStudies': len(dicom_studies)})
 
 
 def main():
